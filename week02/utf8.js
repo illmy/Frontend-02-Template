@@ -2,40 +2,35 @@ function UTF8_Encoding(string) {
     if (typeof string !== 'string') {
         return false;
     }
+    let bytes = new Array();
     for (let index = 0; index < string.length; index++) {
-        let element = string.charCodeAt(index);
-        console.log(element);
-    }
-}
-UTF8_Encoding('12345刘');
-
-function stringToByte(str) {
-    var bytes = new Array();
-    var len, c;
-    len = str.length;
-    for(var i = 0; i < len; i++) {
-        c = str.charCodeAt(i);
-        if(c >= 0x010000 && c <= 0x10FFFF) {
-            bytes.push(((c >> 18) & 0x07) | 0xF0);
-            bytes.push(((c >> 12) & 0x3F) | 0x80);
-            bytes.push(((c >> 6) & 0x3F) | 0x80);
-            bytes.push((c & 0x3F) | 0x80);
-        } else if(c >= 0x000800 && c <= 0x00FFFF) {
-            bytes.push(((c >> 12) & 0x0F) | 0xE0);
-            bytes.push(((c >> 6) & 0x3F) | 0x80);
-            bytes.push((c & 0x3F) | 0x80);
-        } else if(c >= 0x000080 && c <= 0x0007FF) {
-            bytes.push(((c >> 6) & 0x1F) | 0xC0);
-            bytes.push((c & 0x3F) | 0x80);
+        let num = string.charCodeAt(index);
+        let bin = num.toString(2);
+        if(num >= 0x010000 && num <= 0x10FFFF) {
+            let str4 = '10' + bin.slice(-6);
+            let str3 = '10' + bin.slice(-12, -6);
+            let str2 = '10' + bin.slice(-18, -12);
+            let str1 = '11110' + (bin.slice(0, -18)).padStart(3, '0');
+            bytes.push(str1 + str2 + str3 + str4);
+        } else if(num >= 0x000800 && num <= 0x00FFFF) {
+            let str3 = '10' + bin.slice(-6);
+            let str2 = '10' + bin.slice(-12, -6);
+            let str1 = '1110' + (bin.slice(0, -12)).padStart(4, '0');
+            bytes.push(str1 + str2 + str3);
+        } else if(num >= 0x000080 && num <= 0x0007FF) {
+            let str2 = '10' + bin.slice(-6);
+            let str1 = '110' + (bin.slice(0, -6)).padStart(5, '0');
+            bytes.push(str1 + str2);
+        } else if(num >= 0x000000 && num <= 0x00007F) {
+            let str1 = bin.padStart(8, '0');
+            bytes.push(str1);
         } else {
-            bytes.push(c & 0xFF);
+            return false;
         }
     }
     console.log(bytes);
-    return bytes;
-
+    return Buffer.from(bytes);
 }
-stringToByte('12345刘');
 
-let buffer1 = new Buffer('12345刘','utf8');
-console.log(buffer1);
+let buffer = UTF8_Encoding('123456刘严');
+console.log(buffer);
