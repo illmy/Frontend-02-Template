@@ -28,7 +28,11 @@
     <AddtiveExpression>"+"<MultiplicativeExpression>|
     <AddtiveExpression>"-"<MultiplicativeExpression>|
 <MixBracketsExpression>::=<AddtiveExpression>|
-    "("<AddtiveExpression>")"
+    "("<AddtiveExpression>")"|
+    <MixBracketsExpression>"+"<MixBracketsExpression>|
+    <MixBracketsExpression>"-"<MixBracketsExpression>|
+    <MixBracketsExpression>"*"<MixBracketsExpression>|
+    <MixBracketsExpression>"\"<MixBracketsExpression>|
 ```
 
 ## 练习二
