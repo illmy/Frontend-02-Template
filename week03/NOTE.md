@@ -37,20 +37,50 @@
     |  例子             | Reference | 备注 |  
     |  ----             | ----     | ---- |
     | "foo"             | No | |
-    | 123               | 单元格 | |
-    | /x/               | 单元格 | |
-    | (function(){})    | 单元格 | |
-    | foo               | No | |
-    | foo.bar           | 单元格 | |
-    | (123).toString()  | 单元格 | |
-    | (function(){}).toString()    | 单元格 | |
-    | (1, foo.bar)      | No | |
-    | (f = foo.bar)     | 单元格 | |
-    | (foo)             | 单元格 | |
-    | (foo.bar)         | 单元格 | |
+    | 123               | No | |
+    | /x/               | No | |
+    | (function(){})    | No | |
+    | foo               | Yes | 如果没有定义foo的话，就不能解析出reference |
+    | foo.bar()         | Yes | Property reference |
+    | (123).toString()  | Yes | Property reference |
+    | (function(){}).toString()    | Yes | Property reference |
+    | (1, foo.bar)      | No | 经逗号运算符计算后，得到一个新值 |
+    | (f = foo.bar)     | No | 经赋值操作后返回一个新值|
+    | (foo)             | Yes | |
+    | (foo.bar)         | Yes | Property reference|
+
+    每创建一个 Reference 都会为其对应的 base，name，strict 设置相应的值。"strict "对应代码是否开启了严格模式；"name"设置为标识符或属性名；"base"设置为 property 对象或环境记录（environment record）。  
+
+    可以认为 Reference 是一个不带原型、有且只有 3 个属性的对象。譬如说：  
+    ```JavaScript
+    'use strict';
+    var foo;
+
+    // 标识符解析会产生 Reference
+    var Reference = Object.create(null);
+    Reference.base = EnvironmentRecord;
+    Reference.name = 'foo';
+    Reference.strict = true;
+
+    // or
+    foo.bar;
+
+    // 属性访问会产生 Reference
+    var Reference = Object.create(null);
+    Reference.base = foo;
+    Reference.name = 'bar';
+    Reference.strict = true;
+
+    // or 使用未声明的变量
+    a;
+    var Reference = Object.create(null);
+    Reference.base = undefined;
+    Reference.name = 'a';
+    Reference.strict = true;
+    ```
 
 ## 章节内容  
-1. Expressions  
+### Expressions  (按优先级先后)
     1. Member
         > a.b  
         > a[b]  
@@ -77,4 +107,61 @@
     2. New
         > new Foo
     
-        Reference 是什么  
+    3. Call
+        > foo()  
+        > super()  
+        > foo()['b']  
+        > foo().b  
+        > foo\`abc\`
+
+        Example: 
+        new a()['b']
+
+    4. Left Handside & Right Handside  
+    5. Update  
+        > a++  
+        > a--  
+        > --a  
+        > ++a
+    6. Unary (一元)  
+        > delate a.b  
+        > void foo()  
+        > typeof a  
+        > \+ a  
+        > \- a  
+        > ~ a  
+        > ! a  
+        > await a  
+
+    7. Exponential (指数, 唯一右结合)
+        > **
+
+    8. Multiplicative
+        > \* / %
+
+    9. Additive
+        > \+ -
+
+    10. Shift 
+        > << >> >>>
+    
+    11. Relationship
+        > < > <= >= instanceof  in
+
+    12. Equality  
+        > ==  
+        > !=    
+        > \===  
+        > !== 
+    
+    13. Bitwise
+        > & ^ |
+
+    14. Logical  
+        > &&  
+        > ||  
+
+    15. Conditional (三元运算符)
+        > ?:
+
+### 类型转换
