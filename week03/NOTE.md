@@ -13,6 +13,8 @@
 * MemberExpression: 成员表达式
 * Reference: 除了基本类型外，还有 reference 类型，不过它对使用者屏蔽，作为开发者，我们也不用关心它。ECMAScript 将 Reference 定义为“被解析的命名绑定（resolved name binding）”，它由三部分组成——base,name, and strict flag。
 * realm: 存放内置对象的空间。在一个JavaScript引擎的实例里面，所有的内置对象会被放进一个realm里面去
+* Lexical Environments：词法环境
+* Completion Record：完成记录
 
 ## 概念解析
 * Reference  
@@ -177,3 +179,63 @@
     | Null       | 0   | 'null' | false | × | -    | ×   | ×   | 
     | Object     | valueOf | valueOf toString| true |  × | ×    | -   | ×   | 
     | Symbol     | × | × | × | × | × | Boxing | - |
+
+
+### 运行时相关概念(语句)
+
+#### Grammar(语法/文法)
+* 简单语句
+* 组合语句
+* 声明
+  
+#### Runtime
+* Completion Record (完成状态记录)
+* Lexical Environment (词法环境)
+
+    1. Completion Record
+        > [[type]]: normal, break, continue, return, or throw  
+        > [[value]]: 基本类型  
+        > [[target]]: lable
+
+
+#### 简单语句和复合语句
+
+简单语句   
+> ExpressionStatement  
+> EmptyStatement   
+> DebuggerStatement   
+> ThrowStatement   
+> ContinueStatement   
+> BreakStatement   
+> ReturnStatement   
+
+复合语句
+> BlockStatement  
+> IfStatement  
+> SwitchStatement  
+> IterationStatement(迭代语句)  
+> WithStatement  
+> LableStatement  
+> TryStatement  
+
+### 声明
+* FunctionDeclaration  
+* GeneratorDeclaration(产生器声明)
+* AsyncFunctionDeclaration
+* AsyncGeneratorDeclaration
+* VariableDeclaration(var)
+* ClassDeclaration
+* LexicalDeclaration(const let)
+
+### 宏任务和微任务
+
+#### JS执行粒度（运行时）
+* 宏任务（MacroTask）
+* 微任务（Promise）
+* 函数调用（Execution Context）
+* 语句/声明（Completion Record）
+* 表达式（Reference）
+* 直接量/变量/this ......
+  
+
+### 函数调用（需重听）

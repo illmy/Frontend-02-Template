@@ -4,6 +4,13 @@
 
 通过本周学习发现自己计算机基础特别差，需要加强基础学习
 
+## JavaScript
+* Atom
+* Expression
+* Statement
+* Structure
+* Program/Module
+
 ## 练习一
 
 #### 带括号的四则运算
