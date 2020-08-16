@@ -17,17 +17,17 @@
 |  源代码            | 语义     | 表现 |  
 |  ----             | ----     | ---- |
 | 标签（Tag）        | 元素（Element） | 盒（box）|
-> HTML代码中可以书写开始 标签，结束 标签 ，和自封闭 标签 。
-> 一对起止 标签 ，表示一个 元素 。
-> DOM树中存储的是 元素 和其它类型的 节点（Node）。
-> CSS选择器选中的是 元素 。
-> CSS选择器选中的 元素 ，在排版时可能产生多个 盒 。
-> 排版和渲染的基本单位是 盒 。
+> HTML代码中可以书写开始 标签，结束 标签 ，和自封闭 标签 。  
+> 一对起止 标签 ，表示一个 元素 。  
+> DOM树中存储的是 元素 和其它类型的 节点（Node）。  
+> CSS选择器选中的是 元素 。  
+> CSS选择器选中的 元素 ，在排版时可能产生多个 盒 。  
+> 排版和渲染的基本单位是 盒 。  
 
 ##### Box 
-> 一个页面是由很多个 Box 组成的，元素的类型和 display 属性决定了这个 Box 的类型。不 同类型的 Box，会参与不同的 Formatting Context。
-> Block level的box会参与形成BFC，比如display值为block，list-item，table的元素。
-> Inline level的box会参与形成IFC，比如display值为inline，inline-table，inline-block的元素。
+> 一个页面是由很多个 Box 组成的，元素的类型和 display 属性决定了这个 Box 的类型。 不 同类型的 Box，会参与不同的 Formatting Context。  
+> Block level的box会参与形成BFC，比如display值为block，list-item，table的元素。  
+> Inline level的box会参与形成IFC，比如display值为inline，inline-table，inline-block的元素。  
 
 ![盒模型](./box.png)
 
@@ -163,12 +163,12 @@ div
     animation:mykf 5s infinite;
 }
 ```
-> animation-name 时间曲线
-> animation-duration 动画的时长；
-> animation-timing-function 动画的时间曲线；
-> animation-delay 动画开始前的延迟；
-> animation-iteration-count 动画的播放次数；
-> animation-direction 动画的方向。
+> animation-name 时间曲线；  
+> animation-duration 动画的时长；  
+> animation-timing-function 动画的时间曲线；  
+> animation-delay 动画开始前的延迟；  
+> animation-iteration-count 动画的播放次数；  
+> animation-direction 动画的方向。  
 
 ##### Transition
 * transition-property 要变换的属性；
