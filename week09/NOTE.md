@@ -11,3 +11,6 @@
 [代码地址](./code/TicTacToe/index1.html)
 
 #### TicTacToe|给游戏添加一个完美的AI
+
+[代码地址](./code/TicTacToe/index2.html)
+
