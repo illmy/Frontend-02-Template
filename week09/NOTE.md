@@ -14,3 +14,11 @@
 
 [代码地址](./code/TicTacToe/index2.html)
 
+疑惑点
+```JavaScript
+function clone(pattern) {
+    return JSON.parse(JSON.stringify(pattern));
+    //return Object.create(pattern);
+}
+```
+Object.create创建的对象比JSON.parse创建的对象性能好吗
